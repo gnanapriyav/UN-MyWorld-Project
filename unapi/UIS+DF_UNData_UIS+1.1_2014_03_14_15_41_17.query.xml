@@ -1,0 +1,8 @@
+
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <GetCompactData xmlns="http://ec.europa.eu/eurostat/sri/service/2.0">
+      <Query><query:DataWhere><query:And><query:Dataflow>DF_UNData_UIS</query:Dataflow><query:And><query:Or><query:Dimension id="SERIES">GCR_5_A</query:Dimension><query:Dimension id="SERIES">XGNP_FSGOV</query:Dimension><query:Dimension id="SERIES">XGDP_FSGOV</query:Dimension><query:Dimension id="SERIES">LR_AG15T24</query:Dimension></query:Or></query:And></query:And></query:DataWhere></Query>
+    </GetCompactData>
+  </soap:Body>
+</soap:Envelope>
