@@ -1,0 +1,10 @@
+Steps to download data from UNDATA API
+--------------------------------------
+1. Click on "SDMX Browser" in http://data.un.org/Host.aspx?Content=API.
+2. Expand and select the required data source on the left pane of SDMX browser
+3. In most cases selecting "SERIES" in creteria tab displays lists of datasets.
+4. Select required dataset and click 'Download Query' on the top right corner. An XML query will be generated.
+5. Copy the XML query and paste in appropriate place in file 'xml_query_To download Data from UNAPI.js'.
+6. Go to cmd line and execute the following command.
+	Node xml_query_To download Data from UNAPI.js
+7. A file named data.txt will be downloaded.
