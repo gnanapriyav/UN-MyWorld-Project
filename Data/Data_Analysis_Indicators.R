@@ -22,13 +22,12 @@ indicators$delta1210<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X
 indicators$delta1210.count<- mapply(function(x) {return (is.finite(x))}, x=indicators$delta1210)
 indicators$delta10<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2009..YR2009,x2=indicators$X2010..YR2010)
 indicators$delta10.count<- mapply(function(x) {return (is.finite(x))}, x=indicators$delta10)
-delta11<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2010..YR2010,x2=indicators$X2011..YR2011)
-delta11.count<- mapply(function(x) {return (is.finite(x))}, x=delta11)
-delta12<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2011..YR2011,x2=indicators$X2012..YR2012)
-delta12.count<- mapply(function(x) {return (is.finite(x))}, x=delta12)
-delta13<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2012..YR2012,x2=indicators$X2013..YR2013)
-delta13.count<- mapply(function(x) {return (is.finite(x))}, x=delta13)
-indicators <- cbind(indicators,data.frame(delta11,delta11.count,delta12,delta12.count,delta13,delta13.count))
+indicators$delta11<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2010..YR2010,x2=indicators$X2011..YR2011)
+indicators$delta11.count<- mapply(function(x) {return (is.finite(x))}, x=delta11)
+indicators$delta12<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2011..YR2011,x2=indicators$X2012..YR2012)
+indicators$delta12.count<- mapply(function(x) {return (is.finite(x))}, x=delta12)
+indicators$delta13<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2012..YR2012,x2=indicators$X2013..YR2013)
+indicators$delta13.count<- mapply(function(x) {return (is.finite(x))}, x=delta13)
 
 #total counts (unnecessary)
 indicators$count<-mapply(function(x,y,z) {if (isTRUE(x) || isTRUE(y) || isTRUE(z)) {return (TRUE)} else {return (FALSE)}} ,x=indicators$X2011.count,y=indicators$X2012.count,z=indicators$X2013.count)
@@ -50,13 +49,13 @@ ind$missingdelta.11 <- mapply(function(x) { if (x>=100) {return (1)} else {retur
 ind$missingdelta.12 <- mapply(function(x) { if (x>=100) {return (1)} else {return (0)}}, x=ind$delta12.count)
 ind$missingdelta.13 <- mapply(function(x) { if (x>=100) {return (1)} else {return (0)}}, x=ind$delta13.count)
 
-delta1210NA <- indicators$delta1210
-delta12NA <- indicators$delta12
-d=data.frame(cbind(indicators[c("Country.Name","Indicator.Name")],delta1210NA,delta12NA))
-d[is.na(d)] <-0
-meansum <- aggregate(d[,c("delta1210NA","delta12NA")],list(indicators$Indicator.Name),mean)
+meansum<- aggregate(indicators[,c("delta1210","delta11","delta12")],by=list(indicators$Indicator.Name),FUN=mean, na.rm=TRUE)
+meansum$delta1210 <- mapply(function(x) {if (isTRUE(is.finite(x))) {return (x)} else {return (NA)}}, x=meansum$delta1210)
+meansum$delta11 <- mapply(function(x) {if (isTRUE(is.finite(x))) {return (x)} else {return (NA)}}, x=meansum$delta11)
+meansum$delta12 <- mapply(function(x) {if (isTRUE(is.finite(x))) {return (x)} else {return (NA)}}, x=meansum$delta12)
 
 ind<-cbind(ind,meansum)
+ind$Group.1<-NULL
 
 
 
