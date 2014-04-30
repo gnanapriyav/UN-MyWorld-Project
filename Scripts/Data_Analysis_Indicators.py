@@ -4,24 +4,24 @@ import pandas as pd
 import csv
 
 
-f = open('Indicator.csv','rb')
+f = open('/Users/erinmcmahon/mygit/UN-MyWorld-Project/Data/Indicators_final.csv','rb')
 
 
 
 for row in csv.DictReader(f):
-	countryName= str(row['Country Name'])
+	countryName= str(row["Country Name"])
 	countryCode = str(row['Country Code'])
 	IndicatorName=str(row['Indicator Name'])
 	IndicatorCode=str(row['Indicator Code'])
-	Year2005=float(row['2005[YR2005]'])
-	Year2006=float(row['2006[YR2006]'])
-	Year2007=float(row['2007[YR2007]'])
-	Year2008=float(row['2008[YR2008]'])
-	Year2009=float(row['2009[YR2009]'])
-	Year2010=float(row['2010[YR2010]'])
-	Year2011=float(row['2011[YR2011]'])
-	Year2012=float(row['2012[YR2012]'])
-	Year2013=float(row['2013[YR2013]'])
+	Year2005=str(row['2005 [YR2005]'])
+	Year2006=str(row['2006 [YR2006]'])
+	Year2007=str(row['2007 [YR2007]'])
+	Year2008=str(row['2008 [YR2008]'])
+	Year2009=str(row['2009 [YR2009]'])
+	Year2010=str(row['2010 [YR2010]'])
+	Year2011=str(row['2011 [YR2011]'])
+	Year2012=str(row['2012 [YR2012]'])
+	Year2013=str(row['2013 [YR2013]'])
 f.close()
 
 

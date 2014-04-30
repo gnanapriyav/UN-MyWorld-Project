@@ -11,24 +11,34 @@ indicators$X2011..YR2011 <- as.numeric(sub("#N/A",".",indicators$X2011..YR2011))
 indicators$X2012..YR2012 <- as.numeric(sub("#N/A",".",indicators$X2012..YR2012))
 indicators$X2013..YR2013 <- as.numeric(sub("#N/A",".",indicators$X2013..YR2013))
 
+indicators['X2005..YR2005.']<-NULL
+indicators['X2006..YR2006.']<-NULL
+indicators['X2007..YR2007.']<-NULL
+indicators['X2008..YR2008.']<-NULL
+indicators['X2009..YR2009.']<-NULL
+indicators['X2010..YR2010.']<-NULL
+indicators['X2011..YR2011.']<-NULL
+indicators['X2012..YR2012.']<-NULL
+indicators['X2013..YR2013.']<-NULL
+
 #counting 
 indicators$X2010.count <-mapply(function(x) {return(is.finite(x))},x=indicators$X2010..YR2010)
 indicators$X2011.count <-mapply(function(x) {return(is.finite(x))},x=indicators$X2011..YR2011)
 indicators$X2012.count <-mapply(function(x) {return(is.finite(x))},x=indicators$X2012..YR2012)
 indicators$X2013.count <-mapply(function(x) {return(is.finite(x))},x=indicators$X2013..YR2013)
 
-#creating charge variable and counting change variable
+#creating change variable and counting change variable
 indicators$delta1210<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2010..YR2010,x2=indicators$X2012..YR2012)
 indicators$delta1210.count<- mapply(function(x) {return (is.finite(x))}, x=indicators$delta1210)
 indicators$delta10<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2009..YR2009,x2=indicators$X2010..YR2010)
 indicators$delta10.count<- mapply(function(x) {return (is.finite(x))}, x=indicators$delta10)
 indicators$delta11<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2010..YR2010,x2=indicators$X2011..YR2011)
-indicators$delta11.count<- mapply(function(x) {return (is.finite(x))}, x=delta11)
+indicators$delta11.count<- mapply(function(x) {return (is.finite(x))}, x=indicators$delta11)
 indicators$delta12<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2011..YR2011,x2=indicators$X2012..YR2012)
-indicators$delta12.count<- mapply(function(x) {return (is.finite(x))}, x=delta12)
+indicators$delta12.count<- mapply(function(x) {return (is.finite(x))}, x=indicators$delta12)
 indicators$delta13<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X2012..YR2012,x2=indicators$X2013..YR2013)
-indicators$delta13.count<- mapply(function(x) {return (is.finite(x))}, x=delta13)
-
+indicators$delta13.count<- mapply(function(x) {return (is.finite(x))}, x=indicators$delta13)
+indicators
 #total counts (unnecessary)
 indicators$count<-mapply(function(x,y,z) {if (isTRUE(x) || isTRUE(y) || isTRUE(z)) {return (TRUE)} else {return (FALSE)}} ,x=indicators$X2011.count,y=indicators$X2012.count,z=indicators$X2013.count)
 indicators$deltacount<-mapply(function(x,y,z) {if (isTRUE(x) || isTRUE(y) || isTRUE(z)) {return (TRUE)} else {return (FALSE)}} ,x=delta11.count,y=delta12.count,z=delta13.count)
@@ -53,9 +63,73 @@ meansum<- aggregate(indicators[,c("delta1210","delta11","delta12")],by=list(indi
 meansum$delta1210 <- mapply(function(x) {if (isTRUE(is.finite(x))) {return (x)} else {return (NA)}}, x=meansum$delta1210)
 meansum$delta11 <- mapply(function(x) {if (isTRUE(is.finite(x))) {return (x)} else {return (NA)}}, x=meansum$delta11)
 meansum$delta12 <- mapply(function(x) {if (isTRUE(is.finite(x))) {return (x)} else {return (NA)}}, x=meansum$delta12)
+names(meansum)[names(meansum)=='Group.1']<-'Indicator.Name'
 
 ind<-cbind(ind,meansum)
 ind$Group.1<-NULL
+
+ind$missingdelta.10 <- mapply(function(x) { if (x>=90) {return (1)} else {return (0)}}, x=ind$delta10.count)
+ind$missingdelta.1210 <- mapply(function(x) { if (x>=90) {return (1)} else {return (0)}}, x=ind$delta1210.count)
+ind$missingdelta.11 <- mapply(function(x) { if (x>=90) {return (1)} else {return (0)}}, x=ind$delta11.count)
+ind$missingdelta.12 <- mapply(function(x) { if (x>=90) {return (1)} else {return (0)}}, x=ind$delta12.count)
+ind$missingdelta.13 <- mapply(function(x) { if (x>=90) {return (1)} else {return (0)}}, x=ind$delta13.count)
+
+ind$delta1210final<-mapply(function(x,y) { if (y==0) {return (NA)} else { return (x)}}, x=ind$delta1210,y=ind$missing.2010)
+ind$delta11final<-mapply(function(x,y) { if (y==0) {return (NA)} else { return (x)}}, x=ind$delta11,y=ind$missing.2010)
+ind$delta12final<-mapply(function(x,y) { if (y==0) {return (NA)} else { return (x)}}, x=ind$delta12,y=ind$missing.2011)
+
+mergeset<-as.data.frame(cbind(ind$Indicator.Name,ind$delta1210final,ind$delta12final))
+
+names(meansum)[names(meansum)=='Group.1']<-'Indicator.Name'
+indicators<- merge(indicators,ind,by=c("Indicator.Name"))
+
+names(mergeset)[names(mergeset)=='V1']<-'Indicator.Name'
+
+indicators$X2010.count.y<-NULL
+indicators$X2011.count.y<-NULL
+indicators$X2012.count.y<-NULL
+indicators$X2013.count.y<-NULL
+indicators$X2010.count.y<-NULL
+indicators$missing.2010<-NULL
+indicators$missing.2011<-NULL
+indicators$missing.2012<-NULL
+indicators$missing.2013<-NULL
+indicators$missingdelta.10<-NULL
+indicators$missingdelta.1210<-NULL
+indicators$missingdelta.11<-NULL
+indicators$missingdelta.12<-NULL
+indicators$missingdelta.13<-NULL
+indicators$delta1210.y<-NULL
+indicators$delta11.y<-NULL
+indicators$delta12.y<-NULL
+
+# Imputation for general cases
+indexMissing<-which(is.na(indicators$X2012..YR2012))
+indicators$X2012Impute<-indicators$X2012..YR2012
+indicators$X2012Impute[indexMissing]<- indicators$X2011..YR2011[indexMissing]*indicators$delta12final[indexMissing]
+indexMissing10<-which(is.na(indicators$X2012Impute))
+indicators$X2012Impute[indexMissing10]<- indicators$X2010..YR2010[indexMissing10]*indicators$delta1210final[indexMissing10]
+
+#Imputation for specific cases
+
+unq=unique(indicators$Indicator.Name)
+subset10<-indicators[indicators$Indicator.Name==unq[10],]
+
+
+unq11=[]
+
+
+indicators2$X2011ImputeReal<- mapply(function(x2012,name,value) {if (name==unq[10]) {return (value)} else{ return (x2012) }}, x2012=indicators2$X2012Impute,name=indicators$Indicator.Name,value=indicators$X2011..YR2011)
+
+subset10<-indicators2[indicators2$Indicator.Name==unq[10],]
+
+
+
+
+
+
+
+
 
 
 
