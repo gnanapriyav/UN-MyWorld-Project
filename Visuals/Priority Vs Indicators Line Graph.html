@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple Line Graph using SVG and d3.js</title>
+		<script src="http://mbostock.github.com/d3/d3.v2.js"></script>
+		<style>
+			/* tell the SVG path to be a thin blue line without any area fill */
+			
+				path {
+				stroke: steelblue;
+				stroke-width: 1;
+				fill: none;
+			}
+			
+			
+			.axis {
+			  shape-rendering: crispEdges;
+			}
+ 
+			.x.axis line {
+			  stroke: lightgrey;
+			}
+ 
+			.x.axis .minor {
+			  stroke-opacity: .5;
+			}
+ 
+			.x.axis path {
+			  display: none;
+			}
+
+			.x.axis text{
+				font: 10px sans-serif;
+			}
+ 
+			.y.axis line, .y.axis path {
+			  fill: none;
+			  stroke: #000;
+			}
+		</style>
+	</head>
+	<body>
+ 
+ 
+	<div id="graph" class="aGraph" style="position:absolute;top:0px;left:0; float:left;"></div>
+ 
+ 
+	<script>
+		/* implementation heavily influenced by http://bl.ocks.org/1166403 */
+		
+		// define dimensions of graph
+		var m = [80, 80, 80, 80]; // margins
+		var w = 1000 - m[1] - m[3]; // width
+		var h = 500 - m[0] - m[2]; // height
+		
+		// create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
+		//var data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5, 9, 3, 6, 3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 9, 2, 7];
+ 		var data = [
+ 		["Health expenditure per capita",0.1181025],
+		["GDP per capita (USD)",0.11416851],
+		["Fixed broadband Internet subscribers (per 100 people)",0.0957041],
+		["Labor force participation rate, total (% of total population ages 15-24)",0.0737118],
+		["Life expectancy at birth, total (years)",0.07310356],
+		["Population ages 65 and above (% of total)",0.06984799],
+		["Employment to population ratio, ages 15-24, total (%)",0.06950167],
+		["Telephone lines (per 100 people)",0.06543206],
+		["Secure Internet servers (per 1 million people)",0.05992433],
+		["Hospital beds (per 1,000 people)",0.05792687],
+		["Health expenditure, private (% of GDP)",-0.10472229],
+		["Trading.Across.Borders.Documents.to.import",-0.06974623],
+		["Net barter terms of trade index (2000 = 100)",-0.06729926],
+		["Inflation, GDP deflator (annual %)",-0.05427352],
+		["Trading.Across.Borders.Rank",-0.04396689],
+		["Military expenditure (% of GDP)",-0.04125958],
+		["Taxes on goods and services (% of revenue)",-0.03878436],
+		["Taxes on income, profits and capital gains (% of revenue)",-0.03831001],
+		["Out-of-pocket health expenditure (% of total expenditure on health)",-0.03761504],
+		["StartingBusiness.Time",-0.03741461]
+
+ 		
+		]
+
+		// X scale will fit all values from data[] within pixels 0-w
+		//var x = d3.scale.linear().domain([1, data.length]).range([0, w]);
+		var x = d3.scale.ordinal().domain(data.map(function (d){return d[0];})).rangeRoundBands([0, w]);
+		// Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
+		//var y = d3.scale.linear().domain([d3.min(data[1]), d3.max(data[1])]).range([h, 0]);
+		//var y = d3.scale.linear().domain([-0.1, 0.2]).range([h, 0]);
+		var y = d3.scale.linear().domain([d3.min(data,function (d) {return d[1];}),d3.max(data,function(d){return d[1]})]).range([h,0]);
+			// automatically determining max range can work something like this
+			// var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
+ 
+		// create a line function that can convert data[] into x and y points
+		var line = d3.svg.line()
+			//.interpolate("basis")
+			.interpolate("monotone")
+			// assign the X function to plot our line as we wish
+			.x(function(d,i) { 
+				// verbose logging to show what's actually being done
+				console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
+				// return the X coordinate where we want to plot this datapoint
+				//return x(i); 
+				return x(d[0]); 
+			})
+			.y(function(d) { 
+				// verbose logging to show what's actually being done
+				console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
+				// return the Y coordinate where we want to plot this datapoint
+				return y(d[1]); 
+			})
+ 
+			// Add an SVG element with the desired dimensions and margin.
+			var graph = d3.select("#graph").append("svg:svg")
+			      .attr("width", w + m[1] + m[3])
+			      .attr("height", h + m[0] + m[2])
+			    .append("svg:g")
+			      .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+ 
+			// create xAxis
+			//var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
+			var xAxis = d3.svg.axis().scale(x).ticks(20).tickSize(1,0).orient("bottom")
+			// Add the x-axis.
+			graph.append("svg:g")
+			      .attr("class", "x axis")
+			      .attr("transform", "translate(0," + h + ")")
+			      .call(xAxis)
+			    .selectAll("text")
+			    	.attr("y", 9)
+    				.attr("x", 0)    		
+    				.attr("transform", "rotate(90)")
+    				.attr("dy", ".71em")
+    				.style("text-anchor", "middle");
+			      ;
+ 
+ 
+			// create left yAxis
+			var yAxisLeft = d3.svg.axis().scale(y).ticks(10).orient("left");
+			// Add the y-axis to the left
+			graph.append("svg:g")
+			      .attr("class", "y axis")
+			      .attr("transform", "translate(-25,0)")
+			      .call(yAxisLeft);
+			
+  			  			
+  			//Plot the points on screen
+
+  			graph.selectAll('.point')
+   			.data(data)
+   			.enter().append("svg:circle")
+   			.attr("cx", function(d, i){ return x(d[0])})
+   			.attr("cy", function(d, i){ return y(d[1])})
+   			.attr('r', 4);
+
+   			   			
+   			//draw the line graph
+  			graph.append("svg:path").attr("d", line(data));
+
+			//Adding grid lines
+  			// horizontal lines
+  			graph.selectAll(".hline").data(d3.range(14)).enter()
+    			.append("line")
+    			.attr("y1", function (d) {
+    				return d * 26 + 6;
+			})
+    			.attr("y2", function (d) {
+    				return d * 26 + 6;
+			})
+    			.attr("x1", function (d) {
+    				return 0;
+			})
+    			.attr("x2", function (d) {
+    				return w;
+			})
+
+    		.style("stroke", "#eee")
+    		.attr("transform", "translate(" + m.left + "," + m.top + ")");
+  			
+  			//vertical lines
+			graph.selectAll(".vline").data(d3.range(21)).enter()
+    			.append("line")
+    			.attr("x1", function (d) {
+    				return d * (w / 20);
+				})
+    			.attr("x2", function (d) {
+    				return d * (w / 20);
+				})
+    			.attr("y1", function (d) {
+    				return 0;
+				})
+    			.attr("y2", function (d) {
+    				return h;
+				})
+    			.style("stroke", "#eee")
+    			.attr("transform", "translate(" + m.left + "," + m.top + ")");
+
+ 
+	</script>
+ 
+ 
+ 
+	</body>
+</html>
