@@ -95,7 +95,7 @@ colnames(coef)[2:17]<-prnames
 
 
 #final output
-write.table(store1set,file="~/mygit/UN-MYWorld-Project/Data.csv",sep=",")
+write.table(coef,file="~/mygit/UN-MYWorld-Project/Data/coefmatrix.csv",sep=",")
 
 
 
@@ -105,10 +105,18 @@ write.table(store1set,file="~/mygit/UN-MYWorld-Project/Data.csv",sep=",")
 
 #PRELIMINARY STATS
 #saved in excel: ElasticNetResults.xls
-mapply(x=coef[2:17],function(x) {return (length(which(x!=0)))}) #no of variables in model
-colMeans(coef[2:17]) #Mean of coefficients
-colMedian(coef[2:17]) #Standard deviation of coefficients
-
+#priority results
+priorityresults<-mapply(x=coef[2:17],function(x) {return (length(which(x!=0)))}) #no of variables in model
+priorityresults<-cbind(priorityresults,colMeans(coef[2:17])) #Mean of coefficients
+priorityresults<-cbind(priorityresults, colMedians(coef[2:17])) #Standard deviation of coefficients
+priorityresults<- cbind(priorityresults,rowSums(coef[2:17]))
+colnames(priorityresults)<-c("Indicator.Count","Mean","Sum")
+#indicator results
+indresults<- rowMeans(coef[2:17])
+indresults<- cbind(indresults, rowSums(coef[2:17]))
+colnames(indresults)<-c("Mean","Sum")
+#missing indicators
+which(indresults[,2]==0)
 
 
 #PCA ON OUTCOMES
@@ -118,11 +126,18 @@ colMedian(coef[2:17]) #Standard deviation of coefficients
 
 library("princomp")
 
-summary(pc.cr<-princomp(coef,cor=TRUE, scores=TRUE))
+summary(pc.cr<-princomp(coef[2:17],cor=TRUE, scores=TRUE))
 loadings(pc.cr)
 
 #screeplot capture the variance captured by each factor
 plot(pc.cr)
+
+
+
+
+
+pca<-prcomp(coef[2:17],scale=T)
+melted<-cbind(variable.group, melt(pca$rotation[,1:9]))
 
 #we used the top 3 factors that account for x% of variance
 
@@ -131,16 +146,23 @@ plot(pc.cr)
 
 
 
+###########################################################
+#BY COUNTRY IMPACT
+###########################################################
+
+abscoef<-coef[2:17]
+abscoef<- mapply(x=abscoef, function(x) {return (abs(x))})
+rownames(abscoef)<-rownames(coef)
+
+CntryIndImp<-y%*%t(abscoef)
 
 
+for (i in 1:215) {
+	CntryIndImp[,i]<-(CntryIndImp[,i]-mean(CntryIndImp[,i]))/sd(CntryIndImp[,i])
+}
 
+CntryIndImpVal<-CntryIndImp-matrix #need to add in the coeff sign to the matrix
 
-
-
-
-
-
-
-
+#maybe just multiply ny coeff?
 
 
