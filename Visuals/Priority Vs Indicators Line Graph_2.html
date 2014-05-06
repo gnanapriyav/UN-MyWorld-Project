@@ -3,6 +3,51 @@
 	<head>
 		<title>Simple Line Graph using SVG and d3.js</title>
 		<script src="http://mbostock.github.com/d3/d3.v2.js"></script>
+		<style type="text/css">
+			.buttonp1 button {
+          		left: 20px;
+          		position: absolute;
+          		top: 10px;
+          		width: 80px;
+        	}
+		
+		</style>	
+		<style type="text/css">
+			.buttonp2 button {
+          		left: 110px;
+          		position: absolute;
+          		top: 10px;
+          		width: 80px;
+        	}
+		
+		</style>	
+		<style type="text/css">
+			.buttonp3 button {
+          		left: 200px;
+          		position: absolute;
+          		top: 10px;
+          		width: 80px;
+        	}
+		
+		</style>	
+		<style type="text/css">
+			.buttonp4 button {
+          		left: 290px;
+          		position: absolute;
+          		top: 10px;
+          		width: 80px;
+        	}
+		
+		</style>	
+		<style type="text/css">
+			.buttonp5 button {
+          		left: 380px;
+          		position: absolute;
+          		top: 10px;
+          		width: 80px;
+        	}
+		
+		</style>	
 		<style>
 			/* tell the SVG path to be a thin blue line without any area fill */
 			
@@ -12,7 +57,7 @@
 				fill: none;
 			}
 			
-			
+		
 			.axis {
 			  shape-rendering: crispEdges;
 			}
@@ -41,9 +86,23 @@
 	</head>
 	<body>
  
- 
-	<div id="graph" class="aGraph" style="position:absolute;top:0px;left:0; float:left;"></div>
- 
+ 	<div id="graph" class="aGraph" style="position:absolute;top:0px;left:0; float:left;"></div>
+ 	<div class = "buttonp1" id="p1">
+        <button>Priority1</button>
+    </div>
+ 	<div class = "buttonp2" id="p2">
+        <button>Priority2</button>
+    </div>
+    <div class = "buttonp3" id="p3">
+        <button>Priority3</button>
+    </div>
+ 	<div class = "buttonp4" id="p4">
+        <button>Priority4</button>
+    </div>
+ 	<div class = "buttonp5" id="p5">
+        <button>Priority5</button>
+    </div>
+  
  
 	<script>
 		/* implementation heavily influenced by http://bl.ocks.org/1166403 */
@@ -58,77 +117,40 @@
  		var data = [
  		 		
  		[0.1181025,"Health expenditure per capita, PPP (constant 2005 international $)"],
-[0.11416851,"GDP per capita (current US$)"],
-[0.0957041,"Fixed broadband Internet subscribers (per 100 people)"],
-[0.0737118,"Labor force participation rate, total (% of total population ages 15-24)"],
-[0.07310356,"Life expectancy at birth, total (years)"],
-[0.06984799,"Population ages 65 and above (% of total)"],
-[0.06950167,"Employment to population ratio, ages 15-24, total (%)"],
-[0.06543206,"Telephone lines (per 100 people)"],
-[0.05992433,"Secure Internet servers (per 1 million people)"],
-[0.05792687,"Hospital beds (per 1,000 people)"],
-[-0.10472229,"Health expenditure, private (% of GDP)"],
-[-0.06974623,"Trading.Across.Borders.Documents.to.import"],
-[-0.06729926,"Net barter terms of trade index (2000 = 100)"],
-[-0.05427352,"Inflation, GDP deflator (annual %)"],
-[-0.04396689,"Trading.Across.Borders.Rank"],
-[-0.04125958,"Military expenditure (% of GDP)"],
-[-0.03878436,"Taxes on goods and services (% of revenue)"],
-[-0.03831001,"Taxes on income, profits and capital gains (% of revenue)"],
-[-0.03761504,"Out-of-pocket health expenditure (% of total expenditure on health)"],
-[-0.03741461,"StartingBusiness.Time"]
-
+		[0.11416851,"GDP per capita (current US$)"],
+		[0.0957041,"Fixed broadband Internet subscribers (per 100 people)"],
+		[0.0737118,"Labor force participation rate, total (% of total population ages 15-24)"],
+		[0.07310356,"Life expectancy at birth, total (years)"],	
+		[-0.10472229,"Health expenditure, private (% of GDP)"],
+		[-0.06974623,"Trading.Across.Borders.Documents.to.import"],
+		[-0.06729926,"Net barter terms of trade index (2000 = 100)"],
+		[-0.05427352,"Inflation, GDP deflator (annual %)"],
+		[-0.04396689,"Trading.Across.Borders.Rank"]
+		
 		]
-
-		var options = [
-"Action taken on climate change",
-"Better transport and roads",
-"Support for people who can't work",
-"Access to clean water and sanitation",
-"Better healthcare",
-"A good education",
-"A responsive government we can trust",
-"Phone and internet access",
-"Reliable energy at home",
-"Affordable and nutritious food",
-"Protecting forests, rivers and oceans",
-"Political freedoms",
-"Protection against crime and violence",
-"Freedom from discrimination and persecution",
-"Equality between men and women",
-"Better job opportunities"
-		]
-
 
 
 		// X scale will fit all values from data[] within pixels 0-w
-		//var x = d3.scale.linear().domain([1, data.length]).range([0, w]);
-		var y = d3.scale.ordinal().domain(data.map(function (d){return d[1];})).rangeRoundBands([h, 0]);
+		var x = d3.scale.ordinal().domain(data.map(function (d){return d[1];})).rangeRoundBands([0,w]);
 
 		// Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
-		//var y = d3.scale.linear().domain([d3.min(data[1]), d3.max(data[1])]).range([h, 0]);
-		//var y = d3.scale.linear().domain([-0.1, 0.2]).range([h, 0]);
-		var x = d3.scale.linear().domain([d3.min(data,function (d) {return d[0];}),d3.max(data,function(d){return d[0]})]).range([0,w]);
-			// automatically determining max range can work something like this
-			// var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
+		var y = d3.scale.linear().domain([d3.min(data,function (d) {return d[0];}),d3.max(data,function(d){return d[0]})]).range([h,0]);
  
 		// create a line function that can convert data[] into x and y points
 		var line = d3.svg.line()
-			//.interpolate("basis")
 			.interpolate("monotone")
 			// assign the X function to plot our line as we wish
 			.x(function(d,i) { 
 				// verbose logging to show what's actually being done
 				console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
 				// return the X coordinate where we want to plot this datapoint
-				//return x(i); 
-				return x(d[0]); 
+				return x(d[1]); 
 			})
 			.y(function(d) { 
 				// verbose logging to show what's actually being done
 				console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
 				// return the Y coordinate where we want to plot this datapoint
-				return y(d[1]); 
+				return y(d[0]); 
 			})
  
 			// Add an SVG element with the desired dimensions and margin.
@@ -139,44 +161,43 @@
 			      .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
  
 			// create xAxis
-			//var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
-			var xAxis = d3.svg.axis().scale(x).ticks(20).tickSize(1,0).orient("bottom")
+			var xAxis = d3.svg.axis().scale(x).ticks(10).tickSize(1,0).orient("bottom")
 			// Add the x-axis.
 			graph.append("svg:g")
 			      .attr("class", "x axis")
 			      .attr("transform", "translate(0," + h + ")")
 			      .call(xAxis)			    
+			     .selectAll("text")
+			    	.attr("y", 35)
+    				.attr("x", 0)    		
+    				.attr("transform", "rotate(90)")
+    				.attr("dy", ".71em")
+    				.style("text-anchor", "start");			    
 			      ;
  
  
 			// create left yAxis
-			var yAxisRight = d3.svg.axis().scale(y).ticks(10).orient("right");
+			var yAxisLeft = d3.svg.axis().scale(y).ticks(10).orient("left");
 			// Add the y-axis to the left
 			graph.append("svg:g")
 			      .attr("class", "y axis")
-			      .attr("transform", "translate(" + w + ",0)")
-			      .call(yAxisRight)
-				.selectAll("text")
-			    	.attr("y", 9)
-    				.attr("x", 0)    		
-    				//.attr("transform", "rotate(90)")
-    				.attr("dy", ".71em")
-    				.style("text-anchor", "start");
-			      ;
+			      .attr("transform", "translate(-25,0)")
+			      //.attr("transform", "translate(" + w + ",0)")
+			      .call(yAxisLeft)
+				  ;
 			
   			  			
   			//Plot the points on screen
-
   			graph.selectAll('.point')
    			.data(data)
    			.enter().append("svg:circle")
-   			.attr("cx", function(d, i){ return x(d[0])})
-   			.attr("cy", function(d, i){ return y(d[1])})
+   			.attr("cx", function(d, i){ return x(d[1])})
+   			.attr("cy", function(d, i){ return y(d[0])})
    			.attr('r', 4);
 
    			   			
    			//draw the line graph
-  			graph.append("svg:path").attr("d", line(data));
+   			graph.append("svg:path").attr("d", line(data));
 
 			//Adding grid lines
   			// horizontal lines
@@ -217,16 +238,164 @@
     			.attr("transform", "translate(" + m.left + "," + m.top + ")");
 
 
-    		//Build the drop down menu
-    		d3.select("#drop")
-    			.append("select")
-    			.selectAll("option")
-    			.data(options)
-    			.enter()
-    			.append("option")
-    		// Provide available text for the dropdown options
-    			.text(function(d) {return labels[d];})
- 
+    	//On click, update with new data			
+			d3.select("#p1 button")
+			//d3.select("input")
+				.on("click", function() {							
+					//graph.selectAll("svg:path").remove()
+									
+					//Update scale domains
+					x.domain(data.map(function (d){return d[1];})).rangeRoundBands([0,w]);		
+					y.domain([d3.min(data,function (d) {return d[0];}),d3.max(data,function(d){return d[0]})]).range([h,0]);
+
+		 			
+  			//Plot the points on screen
+  			graph.selectAll("circle")
+   				.data(data)
+   				//.enter().append("svg:circle")
+   				.attr("cx", function(d, i){ return x(d[1])})
+   				.attr("cy", function(d, i){ return y(d[0])})
+   				.attr('r', 4)   		
+   			;
+
+   			//Update X axis
+			graph.select(".x.axis")
+			//	.transition()
+		//		.duration(1000)
+				.call(xAxis)
+				.selectAll("text")
+			    	.attr("y", 35)
+    				.attr("x", 0)    		
+    				.attr("transform", "rotate(90)")
+    				.attr("dy", ".71em")
+    				.style("text-anchor", "start");			
+				;
+					
+			//Update Y axis
+			graph.select(".y.axis")
+		//		.transition()
+		//		.duration(1000)
+				.call(yAxisLeft);
+   			   			
+  			graph.append("svg:path").attr("d", line(data));	
+					
+			});
+ // p2 click
+
+     	//On click, update with new data			
+			d3.select("#p2 button")
+			//d3.select("input")
+				.on("click", function() {							
+					//graph.selectAll("svg:path").remove()
+					var data2 = [
+					[0.13621855,"Foreign direct investment, net inflows (% of GDP)"],
+					[0.11498567,"Getting.Electricity.Time"],
+					[0.10131002,"Trading.Across.Borders.Documents.to.import"],
+					[0.091325,"GDP per capita growth (annual %)"],
+					[0.08098093,"Industry, value added (% of GDP)"],
+					[-0.14581565,"Proportion of seats held by women in national parliaments (%)"],
+					[-0.14428747,"Labor force participation rate, male (% of male population ages 15-64)"],
+					[-0.10184685,"Commercial bank branches (per 100,000 adults)"],
+					[-0.08404967,"GDP per unit of energy use (PPP $ per kg of oil equivalent)"],
+					[-0.07816703,"Road sector energy consumption (% of total energy consumption)"]
+	
+					]
+									
+					//Update scale domains
+					x.domain(data2.map(function (d){return d[1];})).rangeRoundBands([0,w]);		
+					y.domain([d3.min(data2,function (d) {return d[0];}),d3.max(data2,function(d){return d[0]})]).range([h,0]);
+
+		 			
+  			//Plot the points on screen
+  			graph.selectAll("circle")
+   				.data(data2)
+   				//.enter().append("svg:circle")
+   				.attr("cx", function(d, i){ return x(d[1])})
+   				.attr("cy", function(d, i){ return y(d[0])})
+   				.attr('r', 4)   		
+   			;
+
+   			//Update X axis
+			graph.select(".x.axis")
+			//	.transition()
+		//		.duration(1000)
+				.call(xAxis)
+					.selectAll("text")
+			    		.attr("y", 35)
+    					.attr("x", 0)    		
+    					.attr("transform", "rotate(90)")
+    					.attr("dy", ".71em")
+    					.style("text-anchor", "start");			
+				;
+					
+			//Update Y axis
+			graph.select(".y.axis")
+		//		.transition()
+		//		.duration(1000)
+				.call(yAxisLeft);
+   			   			
+  			graph.append("svg:path").attr("d", line(data2));	
+					
+			});
+
+// p3 click
+
+     	//On click, update with new data			
+			d3.select("#p3 button")
+			//d3.select("input")
+				.on("click", function() {							
+					//graph.selectAll("svg:path").remove()
+					var data3 = [
+[0.12561925,"Enforcing.Contracts.Procedures"],
+[0.10869579,"Out-of-pocket health expenditure (% of total expenditure on health)"],
+[0.09826788,"Trading.Across.Borders.Documents.to.import"],
+[0.07923592,"Military expenditure (% of GDP)"],
+[0.06751476,"PM10, country level (micrograms per cubic meter)"],
+[-0.16923983,"Ratio of female to male labor force participation rate (%)"],
+[-0.13305854,"Average precipitation in depth (mm per year)"],
+[-0.08985114,"Labor force participation rate, total (% of total population ages 15-24)"],
+[-0.06665615,"Terrestrial and marine protected areas (% of total territorial area)"],
+[-0.05608555,"Fixed broadband Internet subscribers (per 100 people)"]
+
+					]
+									
+					//Update scale domains
+					x.domain(data3.map(function (d){return d[1];})).rangeRoundBands([0,w]);		
+					y.domain([d3.min(data3,function (d) {return d[0];}),d3.max(data3,function(d){return d[0]})]).range([h,0]);
+
+		 			
+  			//Plot the points on screen
+  			graph.selectAll("circle")
+   				.data(data3)
+   				//.enter().append("svg:circle")
+   				.attr("cx", function(d, i){ return x(d[1])})
+   				.attr("cy", function(d, i){ return y(d[0])})
+   				.attr('r', 4)   		
+   			;
+
+   			//Update X axis
+			graph.select(".x.axis")
+			//	.transition()
+		//		.duration(1000)
+				.call(xAxis)
+					.selectAll("text")
+			    		.attr("y", 35)
+    					.attr("x", 0)    		
+    					.attr("transform", "rotate(90)")
+    					.attr("dy", ".71em")
+    					.style("text-anchor", "start");			
+				;
+					
+			//Update Y axis
+			graph.select(".y.axis")
+		//		.transition()
+		//		.duration(1000)
+				.call(yAxisLeft);
+   			   			
+  			graph.append("svg:path").attr("d", line(data3));	
+					
+			});
+
 	</script>
  
 	</body>
