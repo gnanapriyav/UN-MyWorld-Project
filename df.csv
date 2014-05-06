@@ -1,0 +1,161 @@
+"","prioritycode","Indicator","coeff"
+"1",100,"Health expenditure per capita, PPP (constant 2005 international $)",0.1181025
+"2",100,"GDP per capita (current US$)",0.114168509
+"3",100,"Fixed broadband Internet subscribers (per 100 people)",0.095704099
+"4",100,"Labor force participation rate, total (% of total population ages 15-24)",0.073711799
+"5",100,"Life expectancy at birth, total (years)",0.073103562
+"6",100,"Health expenditure, private (% of GDP)",-0.104722288
+"7",100,"Trading.Across.Borders.Documents.to.import",-0.069746229
+"8",100,"Net barter terms of trade index (2000 = 100)",-0.067299259
+"9",100,"Inflation, GDP deflator (annual %)",-0.054273521
+"10",100,"Trading.Across.Borders.Rank",-0.043966893
+"11",101,"Foreign direct investment, net inflows (% of GDP)",0.136218549
+"12",101,"Getting.Electricity.Time",0.114985672
+"13",101,"Trading.Across.Borders.Documents.to.import",0.10131002
+"14",101,"GDP per capita growth (annual %)",0.091325003
+"15",101,"Industry, value added (% of GDP)",0.08098093
+"16",101,"Proportion of seats held by women in national parliaments (%)",-0.145815654
+"17",101,"Labor force participation rate, male (% of male population ages 15-64)",-0.144287466
+"18",101,"Commercial bank branches (per 100,000 adults)",-0.101846848
+"19",101,"GDP per unit of energy use (PPP $ per kg of oil equivalent)",-0.084049674
+"20",101,"Road sector energy consumption (% of total energy consumption)",-0.07816703
+"21",102,"Enforcing.Contracts.Procedures",0.12561925
+"22",102,"Out-of-pocket health expenditure (% of total expenditure on health)",0.108695793
+"23",102,"Trading.Across.Borders.Documents.to.import",0.098267878
+"24",102,"Military expenditure (% of GDP)",0.079235922
+"25",102,"PM10, country level (micrograms per cubic meter)",0.067514758
+"26",102,"Ratio of female to male labor force participation rate (%)",-0.169239829
+"27",102,"Average precipitation in depth (mm per year)",-0.133058541
+"28",102,"Labor force participation rate, total (% of total population ages 15-24)",-0.089851144
+"29",102,"Terrestrial and marine protected areas (% of total territorial area)",-0.066656146
+"30",102,"Fixed broadband Internet subscribers (per 100 people)",-0.056085552
+"31",103,"GDP per capita (current US$)",0.145527992
+"32",103,"Maternal mortality ratio (modeled estimate, per 100,000 live births)",0.115670132
+"33",103,"Logistics performance index: Quality of trade and transport-related infrastructure (1=low to 5=high)",0.093153327
+"34",103,"Employment to population ratio, ages 15-24, total (%)",0.087471407
+"35",103,"Health expenditure, total (% of GDP)",0.079407807
+"36",103,"Out-of-pocket health expenditure (% of private expenditure on health)",-0.16142064
+"37",103,"Population ages 15-64 (% of total)",-0.135682778
+"38",103,"Primary completion rate, female (% of relevant age group)",-0.069595822
+"39",103,"Manufacturing, value added (% of GDP)",-0.06707745
+"40",103,"Primary completion rate, total (% of relevant age group)",-0.066738445
+"41",104,"CPIA macroeconomic management rating (1=low to 6=high)",0.083769386
+"42",104,"Ratio of female to male labor force participation rate (%)",0.082312709
+"43",104,"Health expenditure, private (% of GDP)",0.063114426
+"44",104,"CPIA structural policies cluster average (1=low to 6=high)",0.062791275
+"45",104,"Getting.Electricity.Time",0.047131185
+"46",104,"Secure Internet servers (per 1 million people)",-0.134019259
+"47",104,"GDP per capita (current US$)",-0.08035138
+"48",104,"Telephone lines (per 100 people)",-0.07655825
+"49",104,"Health expenditure per capita, PPP (constant 2005 international $)",-0.074943569
+"50",104,"Paying.Taxes.Total.tax.rate",-0.06957561
+"51",105,"Resolving.Insolvency.Rank",0.073578799
+"52",105,"StartingBusiness.Time",0.058852519
+"53",105,"Intentional homicides (per 100,000 people)",0.055705844
+"54",105,"Foreign direct investment, net inflows (% of GDP)",0.051762984
+"55",105,"Maternal mortality ratio (modeled estimate, per 100,000 live births)",0.050038609
+"56",105,"Agriculture value added per worker (constant 2005 US$)",-0.110589487
+"57",105,"New business density (new registrations per 1,000 people ages 15-64)",-0.064204748
+"58",105,"Wage and salaried workers, female (% of females employed)",-0.06118735
+"59",105,"Resolving.Insolvency.Recovery.rate",-0.04368592
+"60",105,"Telephone lines (per 100 people)",-0.033315246
+"61",106,"Interest payments on external debt (% of exports of goods, services and primary income)",0.170107201
+"62",106,"Getting.Credit.Public.registry.coverage",0.094764207
+"63",106,"Automated teller machines (ATMs) (per 100,000 adults)",0.093128084
+"64",106,"Deposit interest rate (%)",0.0495381
+"65",106,"Depositors with commercial banks (per 1,000 adults)",0.04004888
+"66",106,"Resolving.Insolvency.Cost",-0.045680713
+"67",106,"StartingBusiness.Cost",-0.043132201
+"68",106,"Foreign direct investment, net inflows (% of GDP)",-0.033092178
+"69",106,"Population ages 0-14 (% of total)",-0.025764779
+"70",106,"Getting.Electricity.Cost",-0.025718487
+"71",107,"Consumer price index (2005 = 100)",0.118148889
+"72",107,"Net barter terms of trade index (2000 = 100)",0.113116386
+"73",107,"Registering.Property.Cost",0.095346363
+"74",107,"Livestock production index (2004-2006 = 100)",0.088269236
+"75",107,"Disaster risk reduction progress score (1-5 scale; 5=best)",0.079910252
+"76",107,"Commercial bank branches (per 100,000 adults)",-0.14262833
+"77",107,"StartingBusiness.Procedures..number.",-0.11920898
+"78",107,"Fixed broadband Internet subscribers (per 100 people)",-0.095749262
+"79",107,"Internet users (per 100 people)",-0.071863562
+"80",107,"Intentional homicides (per 100,000 people)",-0.068075847
+"81",108,"Registering.Property.Cost",0.237414324
+"82",108,"Food production index (2004-2006 = 100)",0.103926759
+"83",108,"GDP per capita growth (annual %)",0.095792503
+"84",108,"Trading.Across.Borders.Time.to.export",0.08529019
+"85",108,"Trading.Across.Borders.Documents.to.export",0.080089658
+"86",108,"Ratio of female to male labor force participation rate (%)",-0.098646166
+"87",108,"Intentional homicides (per 100,000 people)",-0.096923205
+"88",108,"StartingBusiness.Time",-0.088451337
+"89",108,"Average precipitation in depth (mm per year)",-0.078617333
+"90",108,"Getting.Credit.Depth.of.credit.information.index",-0.077557905
+"91",109,"Labor force participation rate, male (% of male population ages 15-64)",0.125869635
+"92",109,"Paying.Taxes.Rank",0.113876806
+"93",109,"Protecting.Investors.Ease.of.shareholder.suits.index",0.104122079
+"94",109,"Labor force participation rate, total (% of total population ages 15-24)",0.091114986
+"95",109,"Hospital beds (per 1,000 people)",0.085860595
+"96",109,"Trading.Across.Borders.Documents.to.export",-0.16148159
+"97",109,"StartingBusiness.Min..Capital",-0.139383181
+"98",109,"Getting.Electricity.Time",-0.135451749
+"99",109,"Employment in agriculture (% of total employment)",-0.134332833
+"100",109,"Net domestic credit (current LCU)",-0.092551296
+"101",110,"Average precipitation in depth (mm per year)",0.141382241
+"102",110,"Bird species, threatened",0.122068608
+"103",110,"Population ages 65 and above (% of total)",0.118147327
+"104",110,"Fixed broadband Internet subscribers (per 100 people)",0.088870884
+"105",110,"Employment to population ratio, ages 15-24, total (%)",0.085568492
+"106",110,"Prevalence of HIV, total (% of population ages 15-49)",-0.082734214
+"107",110,"Protecting.Investors.Extent.of.director.liability.index",-0.076740014
+"108",110,"Cause of death, by communicable diseases and maternal, prenatal and nutrition conditions (% of total)",-0.07491777
+"109",110,"Health expenditure, private (% of GDP)",-0.068139935
+"110",110,"Maternal mortality ratio (modeled estimate, per 100,000 live births)",-0.064023609
+"111",111,"Intentional homicides (per 100,000 people)",0.197098683
+"112",111,"Fuel exports (% of merchandise exports)",0.118597244
+"113",111,"Protecting.Investors.Ease.of.shareholder.suits.index",0.113822389
+"114",111,"Access to electricity (% of population)",0.11116633
+"115",111,"Lending interest rate (%)",0.107466773
+"116",111,"StartingBusiness.Min..Capital",-0.095607515
+"117",111,"Electricity production from renewable sources, excluding hydroelectric (% of total)",-0.093366382
+"118",111,"Alternative and nuclear energy (% of total energy use)",-0.079319048
+"119",111,"Protecting.Investors.Extent.of.disclosure.index",-0.07192308
+"120",111,"Registering.Property.Cost",-0.067949044
+"121",112,"Stocks traded, turnover ratio (%)",0.11242822
+"122",112,"Getting.Electricity.Cost",0.092441326
+"123",112,"Inflation, GDP deflator (annual %)",0.076055796
+"124",112,"Improved sanitation facilities (% of population with access)",0.072595603
+"125",112,"Secure Internet servers (per 1 million people)",0.071649715
+"126",112,"Average precipitation in depth (mm per year)",-0.169226897
+"127",112,"Protecting.Investors.Ease.of.shareholder.suits.index",-0.149246972
+"128",112,"CPIA transparency, accountability, and corruption in the public sector rating (1=low to 6=high)",-0.121241465
+"129",112,"Intentional homicides (per 100,000 people)",-0.120502801
+"130",112,"Permanent cropland (% of land area)",-0.096227772
+"131",113,"Prevalence of undernourishment (% of population)",0.097355334
+"132",113,"Fixed broadband Internet subscribers (per 100 people)",0.086752822
+"133",113,"Telephone lines (per 100 people)",0.080843275
+"134",113,"Fuel exports (% of merchandise exports)",0.077807153
+"135",113,"GDP per unit of energy use (PPP $ per kg of oil equivalent)",0.077224158
+"136",113,"CPIA macroeconomic management rating (1=low to 6=high)",-0.129496557
+"137",113,"Present value of external debt (% of GNI)",-0.100846252
+"138",113,"Health expenditure, private (% of GDP)",-0.06934494
+"139",113,"Getting.Electricity.Time",-0.064017776
+"140",113,"Mobile cellular subscriptions (per 100 people)",-0.057181071
+"141",114,"Road sector energy consumption (% of total energy consumption)",0.144430621
+"142",114,"Alternative and nuclear energy (% of total energy use)",0.135449028
+"143",114,"Energy use (kg of oil equivalent per capita)",0.114760872
+"144",114,"International tourism, receipts (% of total exports)",0.099043646
+"145",114,"Employment to population ratio, ages 15-24, total (%)",0.097866516
+"146",114,"Bank nonperforming loans to total gross loans (%)",-0.144646901
+"147",114,"Dealing.with.Construction.Permits.Time",-0.084376576
+"148",114,"Mobile cellular subscriptions (per 100 people)",-0.069989573
+"149",114,"Health expenditure, private (% of GDP)",-0.067151571
+"150",114,"Industry, value added (% of GDP)",-0.062924012
+"151",115,"Health expenditure, private (% of GDP)",0.101370769
+"152",115,"Unemployment, total (% of total labor force)",0.098980151
+"153",115,"Protecting.Investors.Extent.of.director.liability.index",0.095706948
+"154",115,"Permanent cropland (% of land area)",0.075815024
+"155",115,"Foreign direct investment, net inflows (% of GDP)",0.053104695
+"156",115,"Employment to population ratio, ages 15-24, total (%)",-0.143160152
+"157",115,"GDP per capita (current US$)",-0.135680895
+"158",115,"Health expenditure per capita, PPP (constant 2005 international $)",-0.123926022
+"159",115,"Telephone lines (per 100 people)",-0.100367254
+"160",115,"Fixed broadband Internet subscribers (per 100 people)",-0.093298113
