@@ -124,12 +124,35 @@ circle_data$p113widthpercentage <- (circle_data[,16] / circle_data$widthpercenta
 circle_data$p114widthpercentage <- (circle_data[,17] / circle_data$widthpercentage) * 100
 circle_data$p115widthpercentage <- (circle_data[,18] / circle_data$widthpercentage) * 100
 
+calc_freq <- function(df){
+        count = 0
+        df$freq <- 0
+        for (i in 1:nrow(df)){
+                #print (df[i,])
+                for (j in 1:16){
+                #        print (df[i,j])
+                        if (df[i,j] > 0){
+                                count = count + 1
+                        }
+                }
+                #print (count)        
+                df[i,17] = count
+                count = 0               
+        }
+        df$freq                
+}
 
 
+circle_data$freq <- calc_freq(circle_data[,c(3:18)])
+circle_data_freq_sorted <- arrange(circle_data,desc(freq))
+c <- circle_data_freq_sorted[circle_data_freq_sorted$freq >= 3,]
+#Transform to reorder the bar heights
+c <- transform(c,Indicator.Description = reorder(Indicator.Description,freq))
 
+p <- ggplot(c,aes(x=Indicator.Description,y=freq))
+p + geom_bar(stat="identity",color="purple") + coord_flip() + scale_y_continuous(breaks=c(seq(1,10,by=1))) + scale_x_discrete('') + ggtitle("Influencial World Bank Indicators") + ylab("Frequency of Impacting Priorities") + xlab("World Bank Indicator")  + theme(axis.text=element_text(size=10,face="bold"), axis.title=element_text(size=16,face="bold"))
 
-
-
+ 
 
 
 
