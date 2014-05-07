@@ -124,6 +124,7 @@ circle_data$p113widthpercentage <- (circle_data[,16] / circle_data$widthpercenta
 circle_data$p114widthpercentage <- (circle_data[,17] / circle_data$widthpercentage) * 100
 circle_data$p115widthpercentage <- (circle_data[,18] / circle_data$widthpercentage) * 100
 
+#Define a function to calcuate the count of priorities per Indicator
 calc_freq <- function(df){
         count = 0
         df$freq <- 0
@@ -141,7 +142,6 @@ calc_freq <- function(df){
         }
         df$freq                
 }
-
 
 circle_data$freq <- calc_freq(circle_data[,c(3:18)])
 circle_data_freq_sorted <- arrange(circle_data,desc(freq))

@@ -10,3 +10,84 @@ p102
 8  Labor force participation rate, total (% of total population ages 15-24) -0.08985114 Negative
 9      Terrestrial and marine protected areas (% of total territorial area) -0.06665615 Negative
 10                    Fixed broadband Internet subscribers (per 100 people) -0.05608555 Negative
+
+
+d102 <- arrange(coeff,desc(abs(priority102))) #To sort based on the absolute value in descending order
+> head(d102[,c(2,5)],20)
+                                                                  Indicator.Description priority102
+1                            Ratio of female to male labor force participation rate (%) -0.16923983
+2                                          Average precipitation in depth (mm per year) -0.13305854
+3                                                        Enforcing.Contracts.Procedures  0.12561925
+4                   Out-of-pocket health expenditure (% of total expenditure on health)  0.10869579
+5                                            Trading.Across.Borders.Documents.to.import  0.09826788
+6              Labor force participation rate, total (% of total population ages 15-24) -0.08985114
+7                                                       Military expenditure (% of GDP)  0.07923592
+8                                      PM10, country level (micrograms per cubic meter)  0.06751476
+9                  Terrestrial and marine protected areas (% of total territorial area) -0.06665615
+10                                Fixed broadband Internet subscribers (per 100 people) -0.05608555
+11                                            ICT goods imports (% total goods imports) -0.05376604
+12                                                    Consumer price index (2005 = 100)  0.05015828
+13 GEF benefits index for biodiversity (0 = no biodiversity potential to 100 = maximum) -0.04946800
+14                                                             Getting.Electricity.Time -0.04632957
+15                                Employment to population ratio, ages 15-24, total (%) -0.04288490
+16                                                         GDP per capita (current US$) -0.04159890
+17                             Primary completion rate, total (% of relevant age group)  0.03769770
+18                         Insurance and financial services (% of service imports, BoP) -0.03769328
+19                                                                        Net migration -0.03590374
+20                           Disaster risk reduction progress score (1-5 scale; 5=best)  0.03323155
+
+
+  Indicator.Name               Indicator.Description priority100 priority101
+1 AG.LND.CROP.ZS Permanent cropland (% of land area)           0           0
+  priority102 priority103 priority104 priority105 priority106 priority107
+1  0.03182485           0           0           0           0  0.05315092
+  priority108 priority109 priority110 priority111 priority112 priority113
+1  0.03742659           0  0.08387615           0           0           0
+  priority114 priority115       sum widthpercentage p100widthpercentage
+1           0  0.07581502 0.2820935        1.735755                   0
+  p101widthpercentage p102widthpercentage p103widthpercentage p104widthpercentage
+1                   0            1.833488                   0                   0
+  p105widthpercentage p106widthpercentage p107widthpercentage p108widthpercentage
+1                   0                   0            3.062121            2.156214
+  p109widthpercentage p110widthpercentage p111widthpercentage p112widthpercentage
+1                   0            4.832257                   0                   0
+  p113widthpercentage p114widthpercentage p115widthpercentage freq
+1                   0                   0            4.367841    0
+> 
+
+
+ggplot(p115,aes(y=priority115,x=Indicator.Description, fill=Impact)) + geom_bar() + coord_flip() + ggtitle("Better job opportunities Vs Beta Coefficient") + ylab("Beta Coefficient") + xlab("World Bank Indicator")  + theme(axis.text=element_text(size=12,face="bold"), axis.title=element_text(size=14,face="bold"))
+
+
+
+
+better jobs - p115
+ggplot(p115,aes(y=priority115,x=Indicator.Description, fill=Impact)) + geom_bar() + coord_flip() + ylab("Beta Coefficient") + xlab("World Bank Indicator")  + theme(axis.text=element_text(size=25,face="bold"), axis.title=element_text(size=25,face="bold"),title=element_text(size=28,face="bold"),legend.title=element_text(size=25,face="bold"),legend.text=element_text(size=20,face="bold"))
+
+Better transport and roads - p101..
+png("Better Transport And Roads",height=1200,width=1180)
+ggplot(p101,aes(y=priority101,x=Indicator.Description, fill=Impact)) + geom_bar() + coord_flip() + ylab("Beta Coefficient") + xlab("World Bank Indicator")  + theme(axis.text=element_text(size=25,face="bold"), axis.title=element_text(size=25,face="bold"),title=element_text(size=28,face="bold"),legend.title=element_text(size=25,face="bold"),legend.text=element_text(size=20,face="bold"))
+dev.off()
+
+protecting forests - p110
+png("Protecting Forests, rivers and Oceans",height=1200,width=1180)
+
+ggplot(p110,aes(y=priority110,x=Indicator.Description, fill=Impact)) + geom_bar() + ylab("Beta Coefficient") + xlab("World Bank Indicator")  + theme(axis.text=element_text(size=25,face="bold"), axis.title=element_text(size=25,face="bold"),title=element_text(size=28,face="bold"),legend.title=element_text(size=25,face="bold"),legend.text=element_text(size=20,face="bold")) + scale_x_discrete(labels=labels.wrap) + labs(x="",y="Response") + coord_flip()
+
+dev.off()
+
+
+
+set.seed(1)
+library(ggplot2)
+axisLabels.x <- c("Disruptive behaviour can be contained and does not spread to other patients.  Generally, behaviour on the ward is positive and pro-therapeutic.", 
+               "1", "2","3","4",
+               "Disruptive behaviour by one patient tends to spread to other patients and is only contained with great difficulty. The general level of behaviour seems to be getting more counter-therapeutic.")
+labels.wrap  <- lapply(strwrap(axisLabels.x,50,simplify=F),paste,collapse="\n") # word wrap
+gg <- data.frame(x=LETTERS[1:6], y=sample(1:10,6))
+ggplot(gg) +
+  geom_bar(aes(x,y, fill=x), stat="identity")+
+  scale_x_discrete(labels=labels.wrap)+
+  scale_fill_discrete(guide="none")+
+  labs(x="",y="Response")+
+  coord_flip()
