@@ -152,10 +152,30 @@ c <- transform(c,Indicator.Description = reorder(Indicator.Description,freq))
 p <- ggplot(c,aes(x=Indicator.Description,y=freq))
 p + geom_bar(stat="identity",color="purple") + coord_flip() + scale_y_continuous(breaks=c(seq(1,10,by=1))) + scale_x_discrete('') + ggtitle("Influencial World Bank Indicators") + ylab("Frequency of Impacting Priorities") + xlab("World Bank Indicator")  + theme(axis.text=element_text(size=10,face="bold"), axis.title=element_text(size=16,face="bold"))
 
- 
+#circle_gp -- recreate the data needed for circle graph
+circle_gp <- read.csv("Data/circle_gp.csv")
+circle_gp$p100chordlength <- (circle_gp$priority100/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p101chordlength <- (circle_gp$priority101/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p102chordlength <- (circle_gp$priority102/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p103chordlength <- (circle_gp$priority103/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p104chordlength <- (circle_gp$priority104/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p105chordlength <- (circle_gp$priority105/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p106chordlength <- (circle_gp$priority106/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p107chordlength <- (circle_gp$priority107/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p108chordlength <- (circle_gp$priority108/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p109chordlength <- (circle_gp$priority109/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p110chordlength <- (circle_gp$priority110/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p111chordlength <- (circle_gp$priority111/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p112chordlength <- (circle_gp$priority112/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p113chordlength <- (circle_gp$priority113/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p114chordlength <- (circle_gp$priority114/circle_gp$coeffsum) * circle_gp$IndicatorWidth
+circle_gp$p115chordlength <- (circle_gp$priority115/circle_gp$coeffsum) * circle_gp$IndicatorWidth
 
-
-
+#generate the data for d3 chart
+d3_data <- data.frame(matrix(0,nrow=79,ncol=79))
+d3_data[1:16,17:79] <- t(circle_gp[,20:35])
+d3_data[17:79,1:16] <- (circle_gp[,20:35])
+write.csv(d3_data,"Data/d3_data.csv")
 
 
 
