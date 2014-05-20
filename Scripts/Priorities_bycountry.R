@@ -1,4 +1,8 @@
 setwd('../unmyworld')
+
+#for Erin:
+setwd('/Users/erinmcmahon/mygit/UN-MYWorld-Project/Data/')
+
 sdata <- read.csv("MYWorld_votes_all.csv")
 cdata <- read.csv("Country_Mapping.csv")
 pdata <- read.csv("Priority_Mapping.csv")
@@ -35,8 +39,18 @@ codeMRColumn <- function(col, levels=c(100:115,0)) {
 }
 
 dicot_columns <- list()
+<<<<<<< HEAD
 for (i in 1:16) {
     list.append(codeMRColumn(MR_input[,i]))
+=======
+#for (i in 1:16) {
+#    dicot_columns.append(codeMRColumn(MR_input[,i]))
+    #try append(list,codeMRColumn(MR_input[,i]))
+#}
+
+for (i in 1:16) {
+    dicot_columns[[length(dicot_columns)+1]] <- codeMRColumn(MR_input[,i])
+>>>>>>> 4a8ddf6... Final data files added
 }
 
 system.time(MR_list <- lapply(MR_input, codeMRColumn))
@@ -57,6 +71,43 @@ library(plyr)
 sdata1 <- data.frame(country=numeric(no_of_rows),priority100=numeric(no_of_rows),priority101=numeric(no_of_rows),priority102=numeric(no_of_rows),priority103=numeric
                      (no_of_rows),priority104=numeric(no_of_rows),priority105=numeric(no_of_rows),priority106=numeric(no_of_rows),priority107=numeric(no_of_rows),priority108=numeric(no_of_rows),  priority109=numeric
                      (no_of_rows),priority110=numeric(no_of_rows),priority111=numeric(no_of_rows),priority112=numeric(no_of_rows),priority113=numeric(no_of_rows),priority114=numeric(no_of_rows),priority115=numeric(no_of_rows))
+
+
+#AGGREGATING
+
+sdata$count<-1
+
+
+priorities<-aggregate(sdata[,c(17:33)],by=list(sdata$country),FUN=sum)
+
+
+
+priorities<-priorities[1:194,]
+names(priorities)[names(priorities)=='Group.1']<-'Country_Code'
+
+#got rid of Naauru
+priorities<-merge(cdata,priorities,by=c("Country_Code"))
+
+prioritiesperc<-mapply(x=priorities[3:18], function(x) {return (x/priorities$count)})
+
+priorityfinal<-cbind(priorities[,c(1:2)],prioritiesperc)
+
+#lining up with indicators
+priorityfinal$Country.Code<-countrycode(priorityfinal$Country_Name, "country.name","wb")
+priorityfinal<-priorityfinal[order(priorityfinal$Country.Code),]
+
+priorityfinal$Country.Code[193]<-'USA' 
+priorityfinal$Country.Code[192]<-'SVK'
+priorityfinal$Country.Code[191]<-'WSM' 
+priorityfinal<-priorityfinal[order(priorityfinal$Country.Code),]
+
+priorityfinal$Country.Code<-as.factor(priorityfinal$Country.Code)
+
+#truncating to 172 countries
+priorityfinal<-merge(priorityfinal,X[c("Country.Code")],by=c("Country.Code"))
+
+
+
 
 #Extract first 100 rows into sdata100 for testing purposes
 sdata100 <- head(sdata,n=100)
