@@ -55,6 +55,25 @@ indicators$delta1110<-mapply(function(x1,x2) {return (x2/x1-1)}, x1=indicators$X
 #indicators$deltacount<-mapply(function(x,y,z) {if (isTRUE(x) || isTRUE(y) || isTRUE(z)) {return (TRUE)} else {return (FALSE)}} ,x=delta11.count,y=delta12.count,z=delta13.count)
 
 
+#Adding in Ease of Doing Business Metrics
+EODB <- read.csv("/Users/erinmcmahon/mygit/UN-MyWorld-Project/Data/EaseDoingBusiness.csv")
+
+EODB$Dealing.with.Construction.Permits.Procedures<- as.integer(sub("#N/A",".",EODB$Dealing.with.Construction.Permits.Procedures))
+EODB$Dealing.with.Construction.Permits.Time<- as.integer(sub("#N/A",".",EODB$Dealing.with.Construction.Permits.Time))
+EODB$Dealing.with.Construction.Permits.Cost<- as.integer(sub("#N/A",".",EODB$Dealing.with.Construction.Permits.Cost))
+EODB$Registering.Property.Procedures<- as.integer(sub("#N/A",".",EODB$Registering.Property.Procedures))
+EODB$Registering.Property.Time<- as.integer(sub("#N/A",".",EODB$Registering.Property.Time))
+EODB$Registering.Property.Cost<- as.integer(sub("#N/A",".",EODB$Registering.Property.Cost))
+EODB$Resolving.Insolvency.Time<- as.integer(sub("#N/A",".",EODB$Resolving.Insolvency.Time))
+EODB$Resolving.Insolvency.Cost<- as.integer(sub("#N/A",".",EODB$Resolving.Insolvency.Cost))
+EODB$Resolving.Insolvency.Outcome<- as.integer(sub("#N/A",".",EODB$Resolving.Insolvency.Outcome))
+
+EODB$Country.Code<-countrycode(EODB$Economy, "country.name","wb")
+EODB<-EODB[order(EODB$Country.Code),]
+
+EODB$Country.Code<-as.factor(EODB$Country.Code)
+
+
 
 ###########################################################
 #AGGREGATE MEASURES
@@ -99,6 +118,7 @@ ind<-merge(ind,meansum,by=c("Indicator.Name"))
 
 #merge average deltas back into dataframe
 indicators<- merge(indicators[-c(14:31)],ind[c("Indicator.Name","X2010.count","X2011.count","X2012.count","X2013.count","delta1008","delta1009","delta1109","delta1110","delta1210","delta11","delta12")],by=c("Indicator.Name"))
+
 
 
 ###########################################################
@@ -161,6 +181,9 @@ indexMissing11Impute<-which(((indicators$YearImpute)=='X2011..YR2011')&(is.na(in
 indicators$X2012Impute[indexMissing11Impute]<-indicators$X2009..YR2009[indexMissing11Impute]*indicators$delta1109[indexMissing11Impute]
 #Third set of imputes: 20,295 Missing 
 
+
+
+
 ###########################################################
 #REMOVING VARIABLES
 ###########################################################
@@ -214,58 +237,85 @@ cntryind <- aggregate(indicators[,c("X2012Impute.count")],list(indicators$Countr
 cntryind$missing <- mapply(function(x) { if (x>=90) {return (1)} else {return (NA)}}, x=cntryind$x)
 names(cntryind)[names(cntryind)=='Group.1']<-'Country.Code'
 
-<<<<<<< HEAD
-#will remove 17 countries.. mostly islands and such
-indicators<-merge(indicators,cntryind[c("Country.Code","missing")],by=c("Country.Code"))
-indicators<-indicators[which(is.na(indicators$missing)==FALSE),]
-# Observations = 30,448 / Missing = 6,809
-=======
 #will remove 21 countries.. mostly islands and such
 indicators<-merge(indicators,cntryind[c("Country.Code","missing")],by=c("Country.Code"))
 indicators<-indicators[which(is.na(indicators$missing)==FALSE),]
 # Observations = 28,208 / Missing = 6,529
->>>>>>> 4a8ddf6... Final data files added
 
 indicators$missing<-NULL
 indicators$MyWorld<-NULL
 
-#percentage of sample still missing
-<<<<<<< HEAD
-1-sum(indicators$X2012Impute.count,na.rm=TRUE)/length(indicators$X2012Impute.count) #=0.2236272
-=======
+#final percentage of sample still missing
 1-sum(indicators$X2012Impute.count,na.rm=TRUE)/length(indicators$X2012Impute.count) #0.2314592
->>>>>>> 4a8ddf6... Final data files added
 
-#NEXT STEPS: Separate each indicator into a seperate row and then impute based on country income level
+#final counts of missing and one last look at indicators
 indicators$X2012Impute.count <-mapply(function(x) {return(is.finite(x))},x=indicators$X2012Impute)
 X2012Impute.count <- aggregate(indicators[,c("X2012Impute.count")],list(indicators$Indicator.Name),sum)
 
-
-
 finalind<-indicators[c("Country.Code","Indicator.Code","X2012Impute")]
-<<<<<<< HEAD
-#30,448 observations
-#6809 Missing
-#174 Countries
-#173 Indicators
-=======
 #28,208 observations
 #6,240 Missing
 #172 Countries
 #164 Indicators
->>>>>>> 4a8ddf6... Final data files added
 
+
+
+
+###########################################################
+#RESHAPING DATA INTO MATRIX
+###########################################################
+#reshaping so indicators are now variables
 library("reshape")
 X<-cast(finalind,Country.Code~Indicator.Code,mean)
 
+#now we add EODB indicators into our previous dataset
+X<-X[order(X$Country.Code),]
+EODB<-EODB[order(EODB$Country.Code),]
+
+X<-merge(X,EODB,by=c("Country.Code"))
+#had to add Cuba to EODB
+#when we merge, EODB indicators 22 lose countries: 194 to 172
+
+#reorganizing data
+reorderhead<-X[c("Country.Code","Economy","Income")]
+reorder<-X[-c(1,166:168)]
+
+X<-data.frame(reorderhead,reorder)
 
 
+#subsetting data for remaining imputations from median of income group
+XLowIncome<-subset(X, Income==1)
+XLowMidIncome<-subset(X, Income==2)
+XMidHighIncome<-subset(X,Income==3)
+XHighIncome<-subset(X,Income==4)
+
+#running thru columns to find median
+library("miscTools")
+
+for (i in 4:218) {
+	XLowIncome[i][is.na(XLowIncome[i])]<-colMedians(XLowIncome[i],na.rm=TRUE)
+	XLowMidIncome[i][is.na(XLowMidIncome[i])]<-colMedians(XLowMidIncome[i],na.rm=TRUE)
+	XMidHighIncome[i][is.na(XMidHighIncome[i])]<-colMedians(XMidHighIncome[i],na.rm=TRUE)
+	XHighIncome[i][is.na(XHighIncome[i])]<-colMedians(XHighIncome[i],na.rm=TRUE)
+}
+
+#binding back the results
+#this gets tricky because sort function likes to sort only among the rbind groups
+#so, we have to use attach/detach in order to get back to previous sorting
+
+library("gtools")
+X<-smartbind(XLowIncome,XLowMidIncome,XMidHighIncome,XHighIncome)
+attach(X)
+Xsort<-X[order(Country.Code),]
+detach(Xsort)
+edit(Xsort)
 
 
+###########################################################
+#READY FOR ELASTIC NET
+###########################################################
 
-
-
-
-
-
+#final outcome:
+#172 Countries
+#218 Indicators
 
