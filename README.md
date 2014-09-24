@@ -27,3 +27,5 @@ We created a D3 visualization based inspired by the chord diagram at [d3js.org](
 
 The circle is split into two parts. The first part (representing 16 priority goals of [unMyworld.org](www.unmyworld.org) represents 25% of the circumference and the impacted indicators represent the rest of the circumference. You can notice that onmouseover each of the priority, corresponding impacted indicators are highlighted.
 
+Please note that the graphic is not complete yet. Yet to add labels and modify the colors.
+
