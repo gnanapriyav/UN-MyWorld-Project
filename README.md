@@ -3,7 +3,7 @@ UN-MyWorld-Project
 
 UN MyWorld Priorities - DataViz Project @ Columbia
 
-[unMyworld2015.org](www.myworld2015.org)
+[unMyworld2015.org](http://vote.myworld2015.org/)
 
 Background: The UN created a global survey of citizens' priority issues to be incorporated in the next wave of UN Millenium Goals. Any online or ballot voter can choose the six priorities that they feel will most affect their family in the next 15 years. Currently the survey has over 1 million responses and counting. Check out the site: My World While the site has a few cool visualization, the analysis is very basic. The team at the UN was particularly interested in dissecting 'Honest and Responsible Government' (which was surprisingly high) to uncover connections with the UN corruption index.
 
@@ -27,7 +27,7 @@ We created a D3 visualization based inspired by the chord diagram at [d3js.org](
 
 [Here is our graphic](http://bl.ocks.org/gnanapriyav/ab18aea53a5d8901a597)
 
-The circle is split into two parts. The first part (representing 16 priority goals of [unMyworld.org](www.myworld2015.org) represents 25% of the circumference and the impacted indicators represent the rest of the circumference. You can notice that onmouseover each of the priority, corresponding impacted indicators are highlighted.
+The circle is split into two parts. The first part (representing 16 priority goals of [unMyworld.org](http://vote.myworld2015.org/) represents 25% of the circumference and the impacted indicators represent the rest of the circumference. You can notice that onmouseover each of the priority, corresponding impacted indicators are highlighted.
 
 Please note that the graphic is not complete yet. Yet to add labels and modify the colors.
 
