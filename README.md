@@ -2,6 +2,7 @@ UN-MyWorld-Project
 ==================
 
 UN MyWorld Priorities - DataViz Project @ Columbia
+
 [unMyworld2015.org](www.myworld2015.org)
 
 Background: The UN created a global survey of citizens' priority issues to be incorporated in the next wave of UN Millenium Goals. Any online or ballot voter can choose the six priorities that they feel will most affect their family in the next 15 years. Currently the survey has over 1 million responses and counting. Check out the site: My World While the site has a few cool visualization, the analysis is very basic. The team at the UN was particularly interested in dissecting 'Honest and Responsible Government' (which was surprisingly high) to uncover connections with the UN corruption index.
