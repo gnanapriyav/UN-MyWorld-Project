@@ -19,3 +19,11 @@ After looking closely through the various indicators, we found that the project 
 
 3) Working backwards, can we rank the indicators to show which metrics specific countries should prioritize?
 	We haven't done this yet. Hope to do this data analysis in the future.
+
+###Final Visualization
+We created a D3 visualization based inspired by the chord diagram at [d3js.org](http://www.d3js.org)
+
+[Here is our graphic](http://bl.ocks.org/gnanapriyav/ab18aea53a5d8901a597)
+
+The circle is split into two parts. The first part (representing 16 priority goals of [unMyworld.org](www.unmyworld.org) represents 25% of the circumference and the impacted indicators represent the rest of the circumference. You can notice that onmouseover each of the priority, corresponding impacted indicators are highlighted.
+
